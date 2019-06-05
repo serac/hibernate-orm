@@ -20,7 +20,7 @@ import static org.hibernate.jpamodelgen.test.util.TestUtil.assertMetamodelClassG
  */
 public class MetaModelPackageAnnotationGeneratedTest extends CompilationTest {
 
-	private static final String ALT_PACKAGE = "vt.edu";
+	private static final String ALT_PACKAGE = "edu.vt";
 
 
 	/** Regression test. */
@@ -53,5 +53,13 @@ public class MetaModelPackageAnnotationGeneratedTest extends CompilationTest {
 	@WithProcessorOption(key = JPAMetaModelEntityProcessor.META_MODEL_PACKAGE, value = ALT_PACKAGE)
 	public void testMetaModelPackageAnnotationGeneratedWithInheritance() {
 		assertMetamodelClassGeneratedFor( ExtendedTestEntity.class, ALT_PACKAGE );
+	}
+
+	@Test
+	@TestForIssue(jiraKey = "HHH-13408")
+	@WithClasses(EmptyTestEntity.class)
+	@WithProcessorOption(key = JPAMetaModelEntityProcessor.META_MODEL_PACKAGE, value = ALT_PACKAGE)
+	public void testMetaModelPackageAnnotationGeneratedWithInheritedEmpty() {
+		assertMetamodelClassGeneratedFor( EmptyTestEntity.class, ALT_PACKAGE );
 	}
 }
